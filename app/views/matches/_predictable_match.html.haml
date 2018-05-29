@@ -1,42 +1,34 @@
-.card
-  .card-body
-    .row
-      .col.text-center.fifa-country-code
-        = match_with_prediction.left_team.fifa_country_code
-      .col
-      .col.text-center.fifa-country-code
-        = match_with_prediction.right_team.fifa_country_code
-    .row
-      .col.text-center
-        = inline_svg "flags/#{match_with_prediction.left_team.fifa_country_code.downcase}.svg", size: '50px*50px'
-      .col.text-center
-        = match_with_prediction.match.left_team_score
-        \:
-        = match_with_prediction.match.right_team_score
-      .col.text-center
-        = inline_svg "flags/#{match_with_prediction.right_team.fifa_country_code.downcase}.svg", size: '50px*50px'
+.mt-4.mb-4.text-center
+  .row.no-gutters
+    .col-3
+      %button.btn.btn-primary{ onclick: "updateScore('left', 'plus', #{match_with_prediction.match.id} );" } +
+    .col-6
+    .col-3
+      %button.btn.btn-primary{ onclick: "updateScore('right', 'plus', #{match_with_prediction.match.id} );" } +
 
-  .card-body
-    - if match_with_prediction.match.kickoff_at > Time.zone.now
-      .score-controls
-        .row
-          .col.text-center
-            .btn-tk
-              .btn-group-vertical.btn-group-lg{ role: :group }
-                %button.btn.btn-primary{ onclick: "updateScore('left', 'plus', #{match_with_prediction.match.id} );" } +
-                %button.btn.btn-primary{ onclick: "updateScore('left', 'minus', #{match_with_prediction.match.id});" } -
-              .bottom-border
+  .row.no-gutters
+    .col-3
+      .left-flag
+        = inline_svg "flags/#{match_with_prediction.left_team.fifa_country_code.downcase}.svg", class: 'country-flag'
+    .col-6
+      %span.display-4
+        / = match_with_prediction.prediction.left_team_score
+        6 : 0
+        / = match_with_prediction.prediction.right_team_score
+    .col-3
+      .right-flag
+        = inline_svg "flags/#{match_with_prediction.right_team.fifa_country_code.downcase}.svg", class: 'country-flag'
 
-          .col.text-center
-            %span.predicted-score.left-team-score
-              = match_with_prediction.prediction.left_team_score
-            \:
-            %span.predicted-score.right-team-score
-              = match_with_prediction.prediction.right_team_score
+  .row.no-gutters
+    .col-3
+      %button.btn.btn-primary{ onclick: "updateScore('left', 'minus', #{match_with_prediction.match.id});" } -
+    .col-6
+    .col-3
+      %button.btn.btn-primary{ onclick: "updateScore('right', 'minus', #{match_with_prediction.match.id});" } -
 
-          .col.text-center
-            .btn-tk
-              .btn-group-vertical.btn-group-lg{ role: :group }
-                %button.btn.btn-primary{ onclick: "updateScore('right', 'plus', #{match_with_prediction.match.id} );" } +
-                %button.btn.btn-primary{ onclick: "updateScore('right', 'minus', #{match_with_prediction.match.id});" } -
-              .bottom-border
+  .row.no-gutters
+    .col-3
+      = match_with_prediction.left_team.fifa_country_code
+    .col-6
+    .col-3
+      = match_with_prediction.right_team.fifa_country_code
